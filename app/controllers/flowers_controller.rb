@@ -20,5 +20,18 @@ class FlowersController < ApplicationController
       render json: {errors: flower.errors.full_messages}
     end
   end
+
+  def update
+    flower = Flower.find_by(id: params[:id])
+    if flower.update(
+      name: params[:name],
+      color: params[:color],
+      price: params[:price]
+      )
+      render json: flower.as_json
+    else
+      render json: {errors: flower.errors.full_messages}
+    end
+  end
 end
 

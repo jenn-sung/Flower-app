@@ -5,7 +5,8 @@ p "Welcome to the flower's shop!"
 
 p "[1] to see all of my flowers!"
 p "[2] to see a particular flower."
-p "[3] create a new flower option"
+p "[3] create a new flower option."
+p "[4] update a flower option"
 
 
 user_input = gets.chomp
@@ -29,5 +30,17 @@ elsif user_input == '3'
   p "Enter the price"
   the_params[:price] = gets.chomp.to_i
   response  = Unirest.post("localhost:3000/flowers", parameters: the_params)
+  pp response.body
+elsif user_input == '4'
+  the_params = {}
+  p "Enter the id of the flower you would like to update."
+  flower_id = gets.chomp
+  p "Enter the name of the flower."
+  the_params[:name] = gets.chomp
+  p "Enter the color of the of flower"
+  the_params[:color] = gets.chomp
+  p "Enter the price of the flower"
+  the_params[:price] = gets.chomp
+  response = Unirest.patch("localhost:3000/flowers/#{flower_id}", parameters: the_params)
   pp response.body
 end
